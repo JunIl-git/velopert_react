@@ -1,15 +1,12 @@
-function App() {
-  
+import React from 'react'; 
+import MyComponent from "./MyComponent";
+import Counter from "./Counter";
 
+const App = () =>{
   return (
     <>
-      <div style={{
-        backgroundColor : 'red',
-        color : 'white',
-        width : '200px',
-        height : '200px',
-        borderRadius : '20px'
-      }}>리액트</div>
+      <MyComponent name = {"react"}></MyComponent>
+      <Counter></Counter>
     </>
   )
 }
