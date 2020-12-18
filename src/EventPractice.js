@@ -1,42 +1,59 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-class EventPractice extends React.Component{
-    state ={
+const EventPractice = () =>{
+    const [form, setForm] = useState({
         message : '',
-        username : ''
-    }
+        username : '',
+    })
 
-    handleChange = e =>{
-        this.setState({
+    const {message,username} = form;
+
+    const handleChange = e => {
+        const nextForm = {
+            ...form,
             [e.target.name] : e.target.value
-        })
-        console.log(e.target.value);
+        }
+        console.log(nextForm);
+        setForm(nextForm);
+        
     }
 
-    render(){
-        
-        return(
-            <>
-                <input type="text"
-                       placeholder="사용자명"
-                       name="username"
-                      
-                       onChange={this.handleChange}/>
-                <input type="text"
-                       placeholder="아무거나 입력하세요"
-                       name="message"
-                       value={this.state.message}
-                       onChange={this.handleChange}/>
-                <button type="text"
-                       name="message"
-                       
-                       onClick = {()=>{
-                           alert(`${this.state.username} : ${this.state.message}`)
-                       }}
-                        >확인</button>
-            </>
-        );
+    const handleClick = ()=>{
+        alert(`${username} : ${message}`)
+        setForm({
+            message : '',
+            username : '',
+        })
     }
+
+
+    const handlePress = e =>{
+        if(e.key === 'Enter'){
+            handleClick();
+        }
+    }
+
+   
+    return(
+        <>
+            <input type="text"
+                   placeholder="사용자명"
+                   name="username"
+                   value={username}
+                   onChange={handleChange}/>
+            <input type="text"
+                   placeholder="아무거나 입력하세요"
+                   name="message"
+                   value={message}
+                   onChange={handleChange}
+                   onKeyPress={handlePress}
+                   />
+            <button type="text"
+                   name="message"
+                   onClick = {handleClick}
+                    >확인</button>
+        </>
+    );
 }
 
 export default EventPractice;
