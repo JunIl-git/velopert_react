@@ -1,29 +1,28 @@
-import React from 'react';
+import React, {useReducer}from 'react';
 
-class Counter extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            number : 0,
-            fixedNumber : 0,
-        };
-    }
-
-    render(){
-        const {number,fixedNumber} = this.state;
-
-        return(
-            <>
-                <h1>{number}</h1>
-                <h2>바뀌지 않는 값 : {fixedNumber}</h2>
-                <button onClick={()=>{
-                            this.setState({number : number + 1},()=>{console.log("1이 증가하였습니다.")});
-                        }}>카운터
-                </button>
-            </>
-        )
+function reducer(state, action){
+    switch (action.type) {
+        case 'INCREMENT' :
+            return { value : state.value + 1};
+        case 'DECREMENT' : 
+            return { value : state.value - 1};
+        default :
+            return state;
     }
 }
+
+const Counter = () => {
+    const [state, disfetch] = useReducer(reducer, { value : 0})
+
+    return(
+        <>
+            <button onClick ={()=>{disfetch({type :'INCREMENT'})}}>+1</button>
+            <button onClick = {()=>{disfetch({type : 'DECREMENT'})}}>-1</button>
+            <h1>{state.value}</h1>
+        </>
+    )
+}
+ 
 
 
 
