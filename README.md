@@ -228,3 +228,13 @@
             </>
         )
     }
+
+---
+
+## UseMemo
+
+    state가 수정 될 때마다 함수가 호출 되는 것을 방지하기 위함
+    ex) input이 수정이 될 때마다 updating이 된다.
+    주로 랜더링 성능을 최적화 시킬 때 사용한다.
+
+    const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
