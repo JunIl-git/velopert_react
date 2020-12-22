@@ -1,8 +1,9 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState, useRef} from 'react';
 
 const Average = () => {
     const [number, setNumber] = useState('');
     const [list, setList] = useState([]);
+    const inputEl = useRef(null);
 
     const handleChange = useCallback( e => {
         setNumber(e.target.value);
@@ -13,6 +14,7 @@ const Average = () => {
         console.log(nextList);
         setList(nextList);
         setNumber('');
+        inputEl.current.focus();
     },[number, list])
 
     const getAverage = lists => {
@@ -24,7 +26,7 @@ const Average = () => {
     const avg = useMemo(()=> getAverage(list),[list])
     return(
         <>
-            <input value={number} onChange={handleChange}/>
+            <input  type={number} value={number} onChange={handleChange} ref={inputEl}/>
             <button onClick={onInsert}>등록</button>
             <ul>{list.map((value,index)=>{
                 return <li key={index}>{value}</li>

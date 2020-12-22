@@ -238,3 +238,18 @@
     주로 랜더링 성능을 최적화 시킬 때 사용한다.
 
     const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+
+---
+
+## UseRef
+
+    특정 행동에 focus를 사용하고 싶다면
+
+    1. 생성 const inputEl = useRef(null);
+    //괄호의 값은 바뀌어도 렌더링 되지 않음
+    //그래서 랜더링과 관련이 없는 값을 관리할 때 사용 할수 있음
+
+    2. 코드 적용 inputEl.current.focus();
+    //focus가 발생할 함수에 적용
+
+    3. 컴포넌트 적용 ref={inputEl}
