@@ -7,11 +7,12 @@ import React, {useState} from 'react';
 // import ScrollBox from './ScrollBox';
 // import IterationSample from './IterationSample';
   // import Info from './Info';
-  import Average from './Average';
+  // import Average from './Average';
+  import StyledComponent from './StyledComponents';
 const App = () =>{
   return(
     <>
-      <Average />
+  <StyledComponent />
     </>
   )
 }

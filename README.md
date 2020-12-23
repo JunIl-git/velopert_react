@@ -2,85 +2,71 @@
 
 ## props 기본값 설정하기
 
-        MyComponent.defaultProps = {
-            name : "기본 이름",
-        }
+```js
+MyComponent.defaultProps = {
+  name: "기본 이름",
+};
+```
 
-<br>
-<hr>
-<br>
+---
 
 ## 비구조화 할당 문법
 
-        const MyComponent = ({name}) => {
-            return(
-                <div>안녕하세요. 제 이름은 {name}입니다.</div>
-            )
-        }
+```js
+const MyComponent = ({ name }) => {
+  return <div>안녕하세요. 제 이름은 {name}입니다.</div>;
+};
+```
 
-<br>
-<hr>
-<br>
+---
 
 ## 함수내 this사용하기 (bind사용)
 
         함수내에서 this를 사용하기 위해서는 this를 bind시켜야 사용할 수 있다.
         bind를 사용하지 않고 this를 사용하려면 ES6의 화살표 함수를 사용한다.
 
-<br>
-<hr>
-<br>
+---
 
 ## Class Component 객체안에서 [ key ]를 사용하여 중복코드 없애기
 
-        handleChange = e =>{
-                this.setState({
-                    [e.target.name] : e.target.value
-                })
-                console.log(e.target.value);
-        }
-        key값에 [ ]을 사용하고 [ ]안의 래퍼런스가 실제 가리키는 key값으로 사용된다.
+```js
+handleChange = (e) => {
+  this.setState({
+    [e.target.name]: e.target.value,
+  });
+  console.log(e.target.value);
+};
+//key값에 [ ]을 사용하고 [ ]안의 래퍼런스가 실제 가리키는 key값으로 사용된다.
+```
 
-<br>
-<hr>
-<br>
+---
 
 ## function Component에서 [ key ] 사용하여 중복코드 없애기
 
-        const [form, setForm] = useState({
-            message : '',
-            username : '',
-        })
+```js
+const [form, setForm] = useState({
+    message : '',
+    username : '',
+}
+const handleChange = e => {
+    const nextForm = {
+        ...form,    //기존의 form 내용을 이 자리에 복사한 뒤
+        [e.target.name] : e.target.value  //원하는 값을 덮어 씌우기
+    }
+    setForm(nextForm);
+}
+```
 
-        const handleChange = e => {
-            const nextForm = {
-                ...form,    //기존의 form 내용을 이 자리에 복사한 뒤
-                [e.target.name] : e.target.value  //원하는 값을 덮어 씌우기
-            }
-            setForm(nextForm);
-        }
-
-<br>
-<hr>
-<br>
+---
 
 ## class Component Ref 사용하기
 
-    1. ref 생성하기
-        input = React.createRef();
-
-    2. 해당 태그 props로 전달한다.
-        ref={this.input}
-
-    3. Focus가 동작하기 위한 위치에 넣는다.
-        handleButtonClick = () =>{
-        this.setState({
-            clicked : true,
-            validated : this.state.password === '0000',
-        })
-        this.input.current.focus(); // 버튼 클릭 시 input창이 focus된다.
-    }
-
+1. ref 생성하기
+   `input = React.createRef();`
+2. 해당 태그 props로 전달한다.
+   `ref={this.input}`
+3. Focus가 동작하기 위한 위치에 넣는다.
+`js handleButtonClick = () =>{ this.setState({ clicked : true, validated : this.state.password === '0000', }) this.input.current.focus(); // 버튼 클릭 시 input창이 focus된다. } `
 <br>
 <hr>
 <br>
@@ -151,26 +137,30 @@
 
 ## Hooks UseEffect
 
-    componentDidMount 와 componentDidUpdate 를 사용할 때 이용된다.
+_componentDidMount_ 와 _componentDidUpdate_ 를 사용할 때 이용된다.
 
-    useEffect(() => {
-        console.log("componentDidMount & componentDidUpdate");
-        console.log({
-            name,
-            nickName,
-        });
-        return ()=>{    // 위에 두 경우보다 전에 사용하고 싶다면 return값을 넣고 값을 넣는다.
-            console.log('cleanup');
-        }
-    },[name])   //Mounting의 경우만 실행키시고 싶으면 두번 째 인자에 빈칸[]을 넣는다.
-                //특정 state의 변화에 사용하고 싶으면 []안에 state를 넣는다.
+```js
+useEffect(() => {
+  console.log("componentDidMount & componentDidUpdate");
+  console.log({
+    name,
+    nickName,
+  });
+  return () => {
+    // 위에 두 경우보다 전에 사용하고 싶다면 return값을 넣고 값을넣는다.
+    console.log("cleanup");
+  };
+}, [name]); //Mounting의 경우만 실행키시고 싶으면 두번 째 인자에 빈칸[]을 넣는다.
+//특정 state의 변화에 사용하고 싶으면 []안에 state를 넣는다.
+```
 
-<br>
-<hr>
-<br>
+---
 
 ## Hooks UseReducer
 
+```js
+    컴포넌트 외부에서 함수를 제어할 수 있다.
+    여러 컴포넌트에서 같은 함수가 들어가야 할 경우 한 함수로 재사용을 할 수 있다.
     function reducer(state, action){
         switch (action.type) {
             case 'INCREMENT' :
@@ -195,61 +185,79 @@
             </>
         )
     }
+```
 
-<br>
-<hr>
-<br>
+useReducer로 외부파일에 접근하기
 
-    function reducer(state,action){             // 2. reducer함수 생성
-        return {
-            ...state,
-            [action.name] : action.value
-        }
+```js
+import {useReducer} from 'react';
+
+function reducer(state,action){
+    return(
+        ...state,
+        [action.name] : action.value
+    )
+}
+
+export default function useInputs(initialForm){
+    const [state, dispatch] = useReducer(reducer, initialForm);
+    const onChange = e => {
+        dispatch(e.target);
     }
+    return [ state, onChange];
+}
+-----------------------------------------------------------------------------
+import React, {useReducer} from 'react';
+import useInputs from './UseInput';
 
-    const Info = () => {
 
-        const [state, dispatch] = useReducer(reducer, {     // 1. state 설정
-            name : '',
-            nickName : '',
-        })
+const Info = () =>{
 
-        const {name, nickName} = state;
+    const [state, onChange] = useInputs({
+        name : '',
+        nickname : '',
+    })
 
-        const onChange = e => {
-            dispatch(e.target);         // 3. dispatch 함수에 해당 태그 전달
-        }
-        return(
-            <>
-                <input name="name" value={name} type="text"  onChange={onChange}/>
-                <input name="nickName" value={nickName} type="text" onChange={onChange} />
-                <h1>{`NAME : ${name}`}</h1>
-                <h1>{`NICKNAME :${nickName}`}</h1>
-            </>
-        )
-    }
+    const {name, nickName} = state;
+
+    return(
+        <>
+            <input name="name" value={name} onChange={onChange}/>
+            <input name="nickName" value={nickName} onChange={onChange}/>
+            <h1>{name}</h1>
+            <h1>{nickName}</h1>
+        </>
+    )
+}
+
+export default Info;
+```
 
 ---
 
 ## UseMemo
 
-    state가 수정 될 때마다 함수가 호출 되는 것을 방지하기 위함
-    ex) input이 수정이 될 때마다 updating이 된다.
-    주로 랜더링 성능을 최적화 시킬 때 사용한다.
+state가 수정 될 때마다 함수가 호출 되는 것을 방지하기 위함
+ex) input이 수정이 될 때마다 updating이 된다.
+주로 랜더링 성능을 최적화 시킬 때 사용한다.
 
-    const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+```js
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+```
 
 ---
 
 ## UseRef
 
-    특정 행동에 focus를 사용하고 싶다면
+특정 행동에 focus를 사용하고 싶다면
 
-    1. 생성 const inputEl = useRef(null);
-    //괄호의 값은 바뀌어도 렌더링 되지 않음
-    //그래서 랜더링과 관련이 없는 값을 관리할 때 사용 할수 있음
+1. 생성 `const inputEl = useRef(null);`
 
-    2. 코드 적용 inputEl.current.focus();
-    //focus가 발생할 함수에 적용
+   - 괄호의 값은 바뀌어도 렌더링 되지 않음
+   - 그래서 랜더링과 관련이 없는 값을 관리할 때 사용 할수 있음
 
-    3. 컴포넌트 적용 ref={inputEl}
+2. 코드 적용 `inputEl.current.focus();`
+
+   - focus가 발생할 함수에 적용
+
+3. 컴포넌트 적용 `ref={inputEl}`
