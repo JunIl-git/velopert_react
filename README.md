@@ -247,6 +247,68 @@ const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 
 ---
 
+## useCallback, useMemo
+
+```js
+import React, { useCallback, useMemo, useState, useRef } from "react";
+
+const Average = () => {
+  const [number, setNumber] = useState("");
+  const [list, setList] = useState([]);
+  const inputEl = useRef(null);
+
+  const handleChange = useCallback((e) => {
+    setNumber(e.target.value);
+  }, []);
+  //useCallback을 사용하여 리랜더링 시 함수가 계속된 호출을 막기위해서
+  //함수를 마운트 시 생성하고 재사용 할 수 있도록 한다.
+
+  const onInsert = useCallback(() => {
+    const nextList = list.concat(parseInt(number));
+    console.log(nextList);
+    setList(nextList);
+    setNumber("");
+    inputEl.current.focus();
+  }, [number, list]);
+
+  const getAverage = (lists) => {
+    console.log("평균값 계산");
+    if (list.length === 0) {
+      return 0;
+    }
+    const sum = lists.reduce((a, b) => a + b);
+    //a는 배열의 합 b는 현재 값(처음값 : 0)
+    return sum / lists.length;
+  };
+  const avg = useMemo(() => getAverage(list), [list]);
+  //state가 변경됨에 따라 리랜더링 시 함수의 재호출을 막기위함
+
+  return (
+    <>
+                  
+      <input
+        type={number}
+        value={number}
+        onChange={handleChange}
+        ref={inputEl}
+      />
+                  <button onClick={onInsert}>등록</button>
+                  <ul>
+        {list.map((value, index) => {
+          return <li key={index}>{value}</li>;
+        })}
+      </ul>
+                  <h1>{avg}</h1>
+              
+    </>
+  );
+};
+
+export default Average;
+```
+
+---
+
 ## UseRef
 
 특정 행동에 focus를 사용하고 싶다면
@@ -261,3 +323,61 @@ const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
    - focus가 발생할 함수에 적용
 
 3. 컴포넌트 적용 `ref={inputEl}`
+
+---
+
+## Styled-component
+
+```js
+import React from "react";
+import styled, { css } from "styled-components";
+// 조건문 사용 시 스타일을 적용하려면 css를 불러와야한다.
+// css를 불러오지 않고 사용해도 스타일은 적용되지만 props를 이용하기 위해선 css를 사용하자.
+
+const Box = styled.div`
+  background: ${(props) => props.color || "blue"};
+  padding: 1rem;
+  display: flex;
+`; //props.color에 컬러값이 들어가있으면 해당 컬러가 사용되고 들어가있지 않으면 blue가 선택된다.
+
+const Button = styled.button`
+  background-color: white;
+  color: black;
+  border-radius: 4px;
+  height: 40px;
+  font-weight: bold;
+  font-size: 12px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  ${(props) =>
+    props.inverted &&
+    css`
+      background: none;
+      border: 2px solid white;
+      color: white;
+
+      &: hover {
+        background: white;
+        color: black;
+      }
+    `};
+
+  & + button {
+    margin-left: 1rem;
+  }
+`;
+
+const StyledComponents = () => {
+  return (
+    <Box color={"black"}>
+      <Button>안녕하세요</Button>
+      <Button inverted={true}>테두리만</Button>
+    </Box>
+  );
+};
+
+export default StyledComponents;
+```
