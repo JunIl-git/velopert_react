@@ -42,19 +42,20 @@ const Remove = styled.div`
     }
 `
 
-const TodoListItem = ({todo}) => {
-    const {text, checked} = todo;
+const TodoListItem = ({todo, onRemove, onToggle}) => {
+    const {text, checked, id} = todo;
+    console.log(todo);
     return (
         <ListItem>
-            <CheckBox checked={checked}>
+            <CheckBox checked={checked} onClick={()=>{onToggle(id)}}>
                 {checked ? <MdCheckBox/> : <MdCheckBoxOutlineBlank />}
                 <div>{text}</div>
             </CheckBox>
-            <Remove>
+            <Remove onClick={()=>onRemove(id)} >
                 <MdRemoveCircleOutline/>
             </Remove>
         </ListItem>
     )
 }
 
-export default TodoListItem;
+export default React.memo(TodoListItem);
