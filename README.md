@@ -4,7 +4,7 @@
 
 ```js
 MyComponent.defaultProps = {
-  name: "기본 이름",
+  name: '기본 이름',
 };
 ```
 
@@ -141,14 +141,14 @@ _componentDidMount_ 와 _componentDidUpdate_ 를 사용할 때 이용된다.
 
 ```js
 useEffect(() => {
-  console.log("componentDidMount & componentDidUpdate");
+  console.log('componentDidMount & componentDidUpdate');
   console.log({
     name,
     nickName,
   });
   return () => {
     // 위에 두 경우보다 전에 사용하고 싶다면 return값을 넣고 값을넣는다.
-    console.log("cleanup");
+    console.log('cleanup');
   };
 }, [name]); //Mounting의 경우만 실행키시고 싶으면 두번 째 인자에 빈칸[]을 넣는다.
 //특정 state의 변화에 사용하고 싶으면 []안에 state를 넣는다.
@@ -250,10 +250,10 @@ const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 ## useCallback, useMemo
 
 ```js
-import React, { useCallback, useMemo, useState, useRef } from "react";
+import React, { useCallback, useMemo, useState, useRef } from 'react';
 
 const Average = () => {
-  const [number, setNumber] = useState("");
+  const [number, setNumber] = useState('');
   const [list, setList] = useState([]);
   const inputEl = useRef(null);
 
@@ -267,12 +267,12 @@ const Average = () => {
     const nextList = list.concat(parseInt(number));
     console.log(nextList);
     setList(nextList);
-    setNumber("");
+    setNumber('');
     inputEl.current.focus();
   }, [number, list]);
 
   const getAverage = (lists) => {
-    console.log("평균값 계산");
+    console.log('평균값 계산');
     if (list.length === 0) {
       return 0;
     }
@@ -329,13 +329,13 @@ export default Average;
 ## Styled-component
 
 ```js
-import React from "react";
-import styled, { css } from "styled-components";
+import React from 'react';
+import styled, { css } from 'styled-components';
 // 조건문 사용 시 스타일을 적용하려면 css를 불러와야한다.
 // css를 불러오지 않고 사용해도 스타일은 적용되지만 props를 이용하기 위해선 css를 사용하자.
 
 const Box = styled.div`
-  background: ${(props) => props.color || "blue"};
+  background: ${(props) => props.color || 'blue'};
   padding: 1rem;
   display: flex;
 `; //props.color에 컬러값이 들어가있으면 해당 컬러가 사용되고 들어가있지 않으면 blue가 선택된다.
@@ -372,7 +372,7 @@ const Button = styled.button`
 
 const StyledComponents = () => {
   return (
-    <Box color={"black"}>
+    <Box color={'black'}>
       <Button>안녕하세요</Button>
       <Button inverted={true}>테두리만</Button>
     </Box>
@@ -380,4 +380,55 @@ const StyledComponents = () => {
 };
 
 export default StyledComponents;
+```
+
+---
+
+## React.memo를 사용하여 컴포넌트 성능 최적화
+
+컴포넌트의 props가 바뀌지 않았다면, 리렌더링 하지 않도록 설정하여 함수형 컴포넌트의 리렌더링 성능을 최적화해 줄 수 있다. props의 변화에만 영향을 준다. useState나 useContext 훅을 사용한다면 여전히 state나 context 가 변할 때 다시 렌더링이 된다.
+
+```js
+const TodoListItem = ({ todo, onRemove, onToggle }) => {
+  const { text, checked, id } = todo;
+  console.log(todo);
+  return (
+    <ListItem>
+      <CheckBox
+        checked={checked}
+        onClick={() => {
+          onToggle(id);
+        }}
+      >
+        {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        <div>{text}</div>
+      </CheckBox>
+      <Remove onClick={() => onRemove(id)}>
+        <MdRemoveCircleOutline />
+      </Remove>
+    </ListItem>
+  );
+};
+
+export default React.memo(TodoListItem);
+//React.memo를 감싸준다.
+//todo, onRemove, onToggle이 바뀌지 않으면 리렌더링 하지 않는다.
+```
+
+---
+
+## useState의 함수형 업데이트
+
+기존에 setTodos 함수를 사용할 때는 새로운 상태를 파라미터로 넣어 주었지만
+새로운 상태를 파라미터로 넣는 대신, 상태 업데이트를 어떻게 할지 정의해 주는 업데이트를 함수로 넣는다.
+
+```js
+const [number, setNumber] = useState(0);
+//prevNumbers는 파라미터로, 현재 number값을 가리킨다.
+
+const onCrease = useCallback(() =>
+  setNumber((prevNumber) => {
+    return prevNumber + 1;
+  }),
+);
 ```

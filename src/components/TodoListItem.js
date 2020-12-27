@@ -44,7 +44,6 @@ const Remove = styled.div`
 
 const TodoListItem = ({todo, onRemove, onToggle}) => {
     const {text, checked, id} = todo;
-    console.log(todo);
     return (
         <ListItem>
             <CheckBox checked={checked} onClick={()=>{onToggle(id)}}>
