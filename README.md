@@ -386,7 +386,11 @@ export default StyledComponents;
 
 ## React.memo를 사용하여 컴포넌트 성능 최적화
 
-컴포넌트의 props가 바뀌지 않았다면, 리렌더링 하지 않도록 설정하여 함수형 컴포넌트의 리렌더링 성능을 최적화해 줄 수 있다. props의 변화에만 영향을 준다. useState나 useContext 훅을 사용한다면 여전히 state나 context 가 변할 때 다시 렌더링이 된다.
+- 수천개의 컴포넌트들이 존재한다면 사용
+- 부모 컴포넌트의 state가 바뀌면 하위 컴포넌트가 리렌더링 될수 있기 때문에 성능 최적화를 위해 적용한다.
+- 컴포넌트의 props가 바뀌지 않았다면, 리렌더링 하지 않도록 설정하여 함수형 컴포넌트의 리렌더링 성능을 최적화해 줄 수 있다.
+- props의 변화에만 영향을 준다.
+- useState나 useContext 훅을 사용한다면 여전히 state나 context 가 변할 때 다시 렌더링이 된다.
 
 ```js
 const TodoListItem = ({ todo, onRemove, onToggle }) => {
@@ -432,3 +436,10 @@ const onCrease = useCallback(() =>
   }),
 );
 ```
+
+---
+
+## Virtualized 렌더링 최적화
+
+렌더링은 되었지만 실제로 화면에 보이지 않는 컴포넌트는 비효율적이기 때문에 virtualized를 사용하여
+최적화를 시킨다.
