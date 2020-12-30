@@ -443,3 +443,24 @@ const onCrease = useCallback(() =>
 
 렌더링은 되었지만 실제로 화면에 보이지 않는 컴포넌트는 비효율적이기 때문에 virtualized를 사용하여
 최적화를 시킨다.
+
+---
+
+## 불변성의 중요성
+
+원본의 데이터를 해치지 마라.
+
+```js
+const p1 = 1;
+const p2 = 1;
+console.log(p1 === p2) // true
+//원시값들은 메모리에 value를 저장할 경우 같은 값이면 메모리의 한 공간안에 data가 존재하고 같이 사용한다.
+
+const o1 = { name : 'kim' };
+const o2 = { name : 'kim' };
+console.log(o1 === o2) // false
+//반면 원시값이 아닌 가변성이 있는 array, object, function은 value가 같더라도 메모리에 data가 각각 따로 담긴다.
+const o3 = o1; //
+let o3.name = 'lee';
+console.log(o1 === 'kim') // false
+```
