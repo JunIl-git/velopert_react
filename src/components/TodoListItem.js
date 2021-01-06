@@ -7,7 +7,7 @@ const ListItem = styled.div`
     display : flex;
     align-items : center;
     &:nth-child(even){
-        background : #f8f9fa;
+        background : #dcdde1;
     }
     border-top : 1px solid #dee2e6;
 `
