@@ -1,6 +1,6 @@
 # **리액트 (ES6)**
 
-## **TODOLIST** <a href="https://junil-git.github.io/velopert_react/"><U>작품보기!</U></a>
+## **TODOLIST** <a href="https://junil-git.github.io/velopert_react/">작품보기!</a>
 
 ## <img src="./todo.PNG" alt="picture" >
 
