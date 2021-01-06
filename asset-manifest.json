@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/velopert_react/static/css/main.22bb6a48.chunk.css",
-    "main.js": "/velopert_react/static/js/main.fbc60d3d.chunk.js",
-    "main.js.map": "/velopert_react/static/js/main.fbc60d3d.chunk.js.map",
+    "main.js": "/velopert_react/static/js/main.a3a3a529.chunk.js",
+    "main.js.map": "/velopert_react/static/js/main.a3a3a529.chunk.js.map",
     "runtime-main.js": "/velopert_react/static/js/runtime-main.b9f1b051.js",
     "runtime-main.js.map": "/velopert_react/static/js/runtime-main.b9f1b051.js.map",
     "static/js/2.249dbd72.chunk.js": "/velopert_react/static/js/2.249dbd72.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.b9f1b051.js",
     "static/js/2.249dbd72.chunk.js",
     "static/css/main.22bb6a48.chunk.css",
-    "static/js/main.fbc60d3d.chunk.js"
+    "static/js/main.a3a3a529.chunk.js"
   ]
 }
