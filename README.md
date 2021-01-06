@@ -1,13 +1,10 @@
 # **리액트 (ES6)**
 
-## **TODOLIST**
+## **TODOLIST** <a href="https://junil-git.github.io/velopert_react/"><U>작품보기!</U></a>
 
 **React Hooks의 useState를 사용하여 state를 설정하고
-useCallback, useRef, React.memo를 사용하여 컴포넌트 성능을 최적화하였습니다.**
-
-css는 styled-component를 사용하여 js파일 내에서 적용시켰습니다.
-
-## props 기본값 설정하기
+useCallback, useRef, React.memo를 사용하여 컴포넌트 성능을 최적화하였습니다.
+css는 styled-component를 사용하여 js파일 내에서 적용시켰습니다.**<br>
 
 ---
 
