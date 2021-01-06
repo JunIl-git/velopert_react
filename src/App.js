@@ -4,21 +4,10 @@ import TodoInsert from './components/TodoInsert';
 // import TodoListItem from './components/TodoListItem';
 import TodoList from './components/TodoList';
 const App = () =>{
-  const [todos, setTodos] = useState(createBulkTodos);
-
+  const [todos, setTodos] = useState([]);
   const nextId = useRef(1);
 
-  function createBulkTodos(){
-    const array = [];
-    for (let i=1; i<=2500; i++){
-      array.push({
-        id: i,
-        text : `할일 ${i}`,
-        checked: false,
-      })
-    }
-    return array;
-  }
+
 
   const onInsert = useCallback(
     text => {

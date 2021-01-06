@@ -17,5 +17,4 @@ const TodoList = ({todos, onRemove, onToggle}) => {
         </List>
     )
 }
-
 export default React.memo(TodoList);

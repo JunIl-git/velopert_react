@@ -1,12 +1,13 @@
-# 밸로퍼트 리액트 (ES6)
+# **리액트 (ES6)**
+
+## **TODOLIST**
+
+**React Hooks의 useState를 사용하여 state를 설정하고
+useCallback, useRef, React.memo를 사용하여 컴포넌트 성능을 최적화하였습니다.**
+
+css는 styled-component를 사용하여 js파일 내에서 적용시켰습니다.
 
 ## props 기본값 설정하기
-
-```js
-MyComponent.defaultProps = {
-  name: '기본 이름',
-};
-```
 
 ---
 
@@ -17,13 +18,6 @@ const MyComponent = ({ name }) => {
   return <div>안녕하세요. 제 이름은 {name}입니다.</div>;
 };
 ```
-
----
-
-## 함수내 this사용하기 (bind사용)
-
-        함수내에서 this를 사용하기 위해서는 this를 bind시켜야 사용할 수 있다.
-        bind를 사용하지 않고 this를 사용하려면 ES6의 화살표 함수를 사용한다.
 
 ---
 
@@ -66,74 +60,9 @@ const handleChange = e => {
 2. 해당 태그 props로 전달한다.
    `ref={this.input}`
 3. Focus가 동작하기 위한 위치에 넣는다.
-`js handleButtonClick = () =>{ this.setState({ clicked : true, validated : this.state.password === '0000', }) this.input.current.focus(); // 버튼 클릭 시 input창이 focus된다. } `
-<br>
-<hr>
-<br>
+   `js handleButtonClick = () =>{ this.setState({ clicked : true, validated : this.state.password === '0000', }) this.input.current.focus(); // 버튼 클릭 시 input창이 focus된다. } `
 
-## life cycle
-
-    1. constructor 메서드
-        constructor(props) {...}
-
-    컴포넌트의 생성자 메서드로 컴포넌트를 만들 때 처음 실행 된다.
-    state를 초기화 시킨다.
-
-
-
-    2.getDeriveStateFromProps 메서드 v16.3
-
-    props로 받아 온 값을 state에 동기화시키는 용도로 사용하며,
-    컴포넌트가 마운트 될 떄와 업데이트 될 때 호출이 된다.
-
-
-
-    3. componentDidMount 메서드
-    componentDidMount(props){...}
-
-    컴포넌트를 만들고 첫 렌더링을 다 마친 후 실행한다.
-    setTimeOut,setInterval, 네트워크 요청과 같은 비동기 작업을 처리하면 된다.
-
-
-
-    4. shouldComponentUpdate 메서드
-    shouldComponentUpdate(nextProps, nextState){...}
-
-    props 또는 state를 변경했을 때, 리렌더링을 시작할지 여부를 지정하는 메서드.
-    반드시 true 또는 palse를 반환해야 한다.
-
-    *** 프로젝트 성능을 최적화할 때, 필요없는 리렌더링은  false값을 반환시킨다 ***
-
-
-
-    5. getSnapshotBeforeUpdate 메서드 v16.3
-
-    render에서 만들어진 결과물이 브라우저에 실제로 반영되기 직전에 호출된다.
-
-
-
-    6.componentDidUpdate 메서드
-    componentDidUpdate(prevProps, prevState, snapshot){...}
-
-    리랜더링을 완료한 후 실행
-
-
-
-    7. componentWillUnmount 메서드
-    componentWillUnmount(){...}
-
-    컴포넌트를 DOM에서 제거할 때 실행된다.
-    componentDidMount에서 등록한 이벤트, 타이머, 직접 생성한 DOM이 있따면 여기서 제거 작업을 해야한다.
-
-
-
-    8. componentDidCatch 메서드 v16.3
-
-    컴포넌트 렌더링 도중에 에러가 발생했을 때 애플리케이션이 먹통이 되지 않고 오류 UI를 보여 줄수 있게 해 준다.
-
-<br>
-<hr>
-<br>
+---
 
 ## Hooks UseEffect
 
@@ -187,7 +116,7 @@ useEffect(() => {
     }
 ```
 
-useReducer로 외부파일에 접근하기
+## useReducer로 외부파일에 접근하기
 
 ```js
 import {useReducer} from 'react';
@@ -206,7 +135,7 @@ export default function useInputs(initialForm){
     }
     return [ state, onChange];
 }
------------------------------------------------------------------------------
+__________________________________________________________________
 import React, {useReducer} from 'react';
 import useInputs from './UseInput';
 
@@ -441,8 +370,7 @@ const onCrease = useCallback(() =>
 
 ## Virtualized 렌더링 최적화
 
-렌더링은 되었지만 실제로 화면에 보이지 않는 컴포넌트는 비효율적이기 때문에 virtualized를 사용하여
-최적화를 시킨다.
+리스트를 만들 때 렌더링은 되었지만 실제로 화면에 보이지 않는 컴포넌트들은 비효율적이기 때문에 virtualized를 사용하여 최적화를 시킨다.
 
 ---
 
